@@ -7,11 +7,42 @@
 //
 
 import SwiftUI
+import ReSwift
+
+let mainStore = Store<AppState>(
+    reducer: appReducer,
+    state: nil
+)
 
 struct ContentView: View {
+    
+    @ObservedObject private var state = ObservableState(store: mainStore)
+    
     var body: some View {
-        Text("Hello World")
+        VStack {
+            Text(state.current.message.rawValue)
+            HStack {
+                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .rock))}) {
+                    Text("Rock")
+                }
+                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .paper))}) {
+                    Text("Paper")
+                }
+                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .scissors))}) {
+                    Text("Scissors")
+                }
+            }
+            HStack {
+                Text("Player #1: \(state.current.player1Play.weapon?.rawValue ?? "")")
+                Text("Player #2: \(state.current.player2Play.weapon?.rawValue ?? "")")
+            }
+            Button(action: { self.state.dispatch(ResetGame()) }) {
+                Text("Reset Game")
+            }
+        
+        }
     }
+ 
 }
 
 struct ContentView_Previews: PreviewProvider {
