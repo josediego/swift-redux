@@ -14,5 +14,4 @@ struct ChooseWeaponAction: Action {
     var weapon: Weapon
 }
 
-struct ResetGame: Action {
-}
+struct ResetGame: Action {}

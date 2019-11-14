@@ -78,7 +78,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 }
             }
         }
-        
+
     case is ResetGame:
         state.message = .player1choose
         state.turn = Turn(player: .one)

@@ -6,8 +6,8 @@
 //  Copyright © 2019 Focus in Lab. All rights reserved.
 //
 
-import SwiftUI
 import ReSwift
+import SwiftUI
 
 let mainStore = Store<AppState>(
     reducer: appReducer,
@@ -15,20 +15,19 @@ let mainStore = Store<AppState>(
 )
 
 struct ContentView: View {
-    
     @ObservedObject private var state = ObservableState(store: mainStore)
-    
+
     var body: some View {
         VStack {
             Text(state.current.message.rawValue)
             HStack {
-                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .rock))}) {
+                Button(action: { self.state.dispatch(ChooseWeaponAction(weapon: .rock)) }) {
                     Text("Rock")
                 }
-                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .paper))}) {
+                Button(action: { self.state.dispatch(ChooseWeaponAction(weapon: .paper)) }) {
                     Text("Paper")
                 }
-                Button(action: {self.state.dispatch(ChooseWeaponAction(weapon: .scissors))}) {
+                Button(action: { self.state.dispatch(ChooseWeaponAction(weapon: .scissors)) }) {
                     Text("Scissors")
                 }
             }
@@ -39,10 +38,8 @@ struct ContentView: View {
             Button(action: { self.state.dispatch(ResetGame()) }) {
                 Text("Reset Game")
             }
-        
         }
     }
- 
 }
 
 struct ContentView_Previews: PreviewProvider {

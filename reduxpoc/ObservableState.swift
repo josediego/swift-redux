@@ -10,34 +10,33 @@ import ReSwift
 import SwiftUI
 
 public class ObservableState<T>: ObservableObject where T: StateType {
-
     // MARK: Public properties
-    
+
     @Published public var current: T
-    
+
     // MARK: Private properties
-    
+
     private var store: Store<T>
-    
+
     // MARK: Lifecycle
-    
+
     public init(store: Store<T>) {
         self.store = store
-        self.current = store.state
-        
+        current = store.state
+
         store.subscribe(self)
     }
-    
+
     deinit {
         store.unsubscribe(self)
     }
-    
+
     // MARK: Public methods
-    
+
     public func dispatch(_ action: Action) {
         store.dispatch(action)
     }
-    
+
     public func dispatch(_ action: Action) -> () -> Void {
         {
             self.store.dispatch(action)
@@ -46,9 +45,8 @@ public class ObservableState<T>: ObservableObject where T: StateType {
 }
 
 extension ObservableState: StoreSubscriber {
-    
     // MARK: - <StoreSubscriber>
-    
+
     public func newState(state: T) {
         DispatchQueue.main.async {
             self.current = state
@@ -56,7 +54,7 @@ extension ObservableState: StoreSubscriber {
     }
 }
 
-//final class BindableStore<S>: ObservableObject, StoreSubscriber where S: StateType {
+// final class BindableStore<S>: ObservableObject, StoreSubscriber where S: StateType {
 //
 //    public typealias StoreSubscriberStateType = S
 //
@@ -103,4 +101,4 @@ extension ObservableState: StoreSubscriber {
 //    public func newState(state: S) {
 //        self.state = state
 //    }
-//}
+// }
